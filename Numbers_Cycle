@@ -8,8 +8,9 @@ namespace First_blood
         {
             int startNumber = 5;
             int increasedNumber = 7;
+            int maxNumber = 100;
 
-            for (int i = startNumber; i < 100; i += increasedNumber)
+            for (int i = startNumber; i < maxNumber; i += increasedNumber)
             {
                 Console.Write(i + " ");
             }
