@@ -1,0 +1,24 @@
+using System;
+
+namespace First_blood
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string phrase;
+            int repeatQuantity;
+            
+            Console.WriteLine("Привет. Я попугай Кеша. Скажи мне что-нибудь и назови любую цифру.");
+            Console.Write("Введите фразу: ");
+            phrase = Console.ReadLine();
+            Console.Write("Введите цифру: ");
+            repeatQuantity = Convert.ToInt32(Console.ReadLine());
+            
+            for (int i = 0; i < repeatQuantity; i++)
+            {
+                Console.WriteLine(i + 1 + ". Попугай Кеша говорит: " + phrase);
+            }
+        }
+    }
+}
