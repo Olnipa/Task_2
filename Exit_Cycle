@@ -1,0 +1,33 @@
+using System;
+
+namespace First_blood
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string phrase = "";
+            string exitPhrase = "exit";
+
+            Console.WriteLine("Путешествуя по средиземью вы обнаружили золотую антилопу и попытались уговорить ее " +
+                "\"наклепать\" вам золотых монет. Антилопа согласилась, но предупредила что не остановится пока не услышит слово " +
+                "\"" + exitPhrase + "\".");
+
+            while (phrase != exitPhrase)
+            {
+                Console.WriteLine("Напишите, что вы хотите сказать антилопе: ");
+                phrase = Console.ReadLine();
+                if (phrase != exitPhrase)
+                {
+                    Console.WriteLine("Вы сказали антилопе: \"" + phrase + "\". Антилопа не обращает на вас никакого " +
+                        "внимания и продолжает засыпать вас монетами");
+                }
+                else
+                {
+                    Console.WriteLine("Антилопа перестала \"клепать\" монеты, посмотрела на вас с довольной ехидной " +
+                        "улыбкой и через мгновение все золотые монеты вокруг вас превратились в пыль.");
+                }
+            }
+        }
+    }
+}
