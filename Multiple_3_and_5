@@ -7,18 +7,22 @@ namespace First_blood
         static void Main(string[] args)
         {
             int summ = 0;
-            Random randNumber = new Random();
-            int a = randNumber.Next(0, 101);
+            int minRandomNumber = 0;
+            int maxRandomNumber = 101;
+            int multiplicity1 = 3;
+            int multiplicity2 = 5;
+            Random random = new Random();
+            int randomNumber = random.Next(minRandomNumber, maxRandomNumber);
 
-            for (int i = a; i > 0; i -= 1)
+            for (int i = randomNumber; i > 0; i -= 1)
             {
-                if (i % 3 == 0 || i % 5 == 0)
+                if (i % multiplicity1 == 0 || i % multiplicity2 == 0)
                 {
                     summ += i;
                 }
             }
 
-            Console.WriteLine("Сумма всех положительных чисел меньше " + a + " (включая " + a + "), которые кратные 3 или 5: " + summ);
+            Console.WriteLine("Сумма всех положительных чисел меньше " + randomNumber + " (включая " + randomNumber + "), которые кратные " + multiplicity1 + " или " + multiplicity2 + ": " + summ);
         }
     }
 }
