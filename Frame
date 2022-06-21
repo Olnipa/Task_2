@@ -1,0 +1,32 @@
+using System;
+
+namespace First_blood
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            char anySymbol;
+            string anyWord;
+            int stringLengh;
+
+            Console.WriteLine("Введите любое слово: ");
+            anyWord = Console.ReadLine();
+            Console.WriteLine("Введите любой символ: ");
+            anySymbol = Convert.ToChar(Console.ReadLine());
+            stringLengh = anyWord.Length;
+
+            for (int i = 0; i < stringLengh + 2; i += 1)
+            {
+                Console.Write(anySymbol);
+            }
+            
+            Console.Write("\n" + anySymbol + anyWord + anySymbol + "\n");
+
+            for (int i = 0; i < stringLengh + 2; i += 1)
+            {
+                Console.Write(anySymbol);
+            }
+        }
+    }
+}
