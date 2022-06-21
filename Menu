@@ -1,0 +1,77 @@
+using System;
+
+namespace First_blood
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string characterName = "";
+            string password = "";
+            string checkPassword = "";
+            string choosenMenu = "";
+            string choosenColor;
+
+            Console.WriteLine("Вы попали в меню создания нового персонажа.");
+
+            while (choosenMenu != "Exit")
+            {
+                if (password == checkPassword)
+                {
+                    Console.WriteLine("\nПожалуйста, выберите желаемое действие:" +
+                        "\nSetName - Изменить имя персонажа; SetPassword - Изменить пароль; ColorOfName - Изменить цвет букв имени;" +
+                        "\nDefaultSetting - сбросить все параметры до изначальных; Exit - выход;");
+                    choosenMenu = Console.ReadLine();
+
+                    switch (choosenMenu)
+                    {
+                        case "SetName":
+                            Console.Write("Напишите имя персонажа: ");
+                            characterName = Console.ReadLine();
+                            Console.WriteLine("Имя вашего персонажа - " + characterName);
+                            break;
+                        case "SetPassword":
+                            Console.Write("Придумайте пароль: ");
+                            password = Console.ReadLine();
+                            break;
+                        case "ColorOfName":
+                            Console.WriteLine("Выберите цвет: \"Blue\" - синий, \"Green\" - зеленый, \"Red\" - Красный");
+                            choosenColor = Console.ReadLine();
+
+                            switch (choosenColor)
+                            {
+                                case "Blue":
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                    break;
+                                case "Green":
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    break;
+                                case "Red":
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    break;
+                            }
+                            Console.WriteLine(characterName);
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            break;
+                        case "DefaultSetting":
+                            Console.Write("Сейчас будет произведен полный сброс всех параметров. Для продолжения нажмите клавишу \"enter\".");
+                            Console.ReadLine();
+                            password = "";
+                            checkPassword = "";
+                            characterName = "";
+                            break;
+                        default:
+                            Console.WriteLine("Такой команды в меню нет. Повторите ввод внимательнее.");
+                            break;
+                    }
+                }
+
+                else
+                {
+                    Console.Write("Для входа в меню введите пароль: ");
+                    checkPassword = Console.ReadLine();
+                }
+            }    
+        }
+    }
+}
