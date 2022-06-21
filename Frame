@@ -22,8 +22,8 @@ namespace First_blood
             {
                 board += Convert.ToString(anySymbol);
             }
-            Console.WriteLine(board + "\n" + anySymbol + anyWord + anySymbol + "\n" + board);
             
+            Console.WriteLine(board + "\n" + anySymbol + anyWord + anySymbol + "\n" + board);
         }
     }
 }
