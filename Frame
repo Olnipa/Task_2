@@ -24,7 +24,6 @@ namespace First_blood
                     Console.Write("\n" + anySymbol + anyWord + anySymbol + "\n");
                 }
                 Console.Write(anySymbol);
-
             }
         }
     }
