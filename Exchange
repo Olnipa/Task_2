@@ -1,0 +1,86 @@
+using System;
+
+namespace First_blood
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            float oren = 150;
+            float krone = 1300;
+            float floren = 350;
+            float orenToKrone = 10;
+            float kroneToFloren = 0.5f;
+            float florenToOren = 2;
+            string choosenExchangePair;
+            float quantityToBuy;
+
+            Console.WriteLine($"За убийство чудовищ в разных государствах Ведьмаку заплатили: " +
+                $"\n1. {oren} Темерских Оренов" +
+                $"\n2. {floren} Нильфгардских Флоренов" +
+                $"\n3. {krone} Новиградских Крон." +
+                $"\n\nВедьмак пришел в банк и хочет обменять деньги:");
+
+            Console.WriteLine($"\nДобро пожаловать в банк, Ведьмак!\n\nКурсы обмена валют на сегодня:" +
+                $"\n1. Темерские Орены к Новиградским Кронам: {orenToKrone}" +
+                $"\n2. Новиградские Кроны к Нильфгардским Флоренам: {kroneToFloren}" +
+                $"\n3. Темерские Орены к Нильфгардским Флоренам: {florenToOren}" +
+                $"\n\nУкажите, какую валюту вы хотели бы обменять?");
+            Console.WriteLine("1 - Обменять Орены на Кроны; 2 - Обменять Кроны на Флорены; 3 - Обменять Флорены на Орены;");
+            choosenExchangePair = Console.ReadLine();
+
+            switch (choosenExchangePair)
+            {
+                case "1":
+                    Console.WriteLine("\nВы выбрали обмен Оренов на Кроны. Сколько Крон вы хотите купить?");
+                    quantityToBuy = Convert.ToSingle (Console.ReadLine());
+
+                    if (oren >= quantityToBuy/orenToKrone)
+                    {
+                        oren -= quantityToBuy / orenToKrone;
+                        krone += quantityToBuy;
+                        Console.WriteLine("Обмен успешно совершен.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Недостаточно средств. Обмен не был совершен.");
+                    }
+
+                    break;
+                case "2":
+                    Console.WriteLine("\nВы выбрали обмен Кронов на Флорены. Сколько Флоренов вы хотите купить?");
+                    quantityToBuy = Convert.ToSingle(Console.ReadLine());
+
+                    if (krone >= quantityToBuy / kroneToFloren)
+                    {
+                        krone -= quantityToBuy / kroneToFloren;
+                        floren += quantityToBuy;
+                        Console.WriteLine("Обмен успешно совершен.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Недостаточно средств. Обмен не был совершен.");
+                    }
+                    break;
+                case "3":
+                    Console.WriteLine("\nВы выбрали обмен Флоренов на Орены. Сколько Оренов вы хотите купить?");
+                    quantityToBuy = Convert.ToSingle(Console.ReadLine());
+
+                    if (floren >= quantityToBuy / florenToOren)
+                    {
+                        floren -= quantityToBuy / florenToOren;
+                        oren += quantityToBuy;
+                        Console.WriteLine("Обмен успешно совершен.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Недостаточно средств. Обмен не был совершен.");
+                    }
+                    break;
+            }
+            Console.WriteLine($"\nОстаток Оренов: {oren};\nОстаток Крон: {krone};\nОстаток Флорены: {floren}" +
+                $"\n\nДля продолжения нажмите \"1\"; Для Выхода нажмите \"2\"");
+
+        }
+    }
+}
