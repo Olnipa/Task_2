@@ -91,9 +91,9 @@ namespace First_blood
                         Console.WriteLine("\nВы выбрали обмен Кронов на Орены. Сколько Оренов вы хотите купить?");
                         quantityToBuy = Convert.ToSingle(Console.ReadLine());
 
-                        if (krone >= quantityToBuy * orenToKrone)
+                        if (krone >= quantityToBuy / kroneToOren)
                         {
-                            krone -= quantityToBuy * orenToKrone;
+                            krone -= quantityToBuy / kroneToOren;
                             oren += quantityToBuy;
                             Console.WriteLine("Обмен успешно совершен.");
                         }
@@ -106,9 +106,9 @@ namespace First_blood
                         Console.WriteLine("\nВы выбрали обмен Флоренов на Кроны. Сколько Крон вы хотите купить?");
                         quantityToBuy = Convert.ToSingle(Console.ReadLine());
 
-                        if (floren >= quantityToBuy * kroneToFloren)
+                        if (floren >= quantityToBuy / florenToKron)
                         {
-                            floren -= quantityToBuy * kroneToFloren;
+                            floren -= quantityToBuy / florenToKron;
                             krone += quantityToBuy;
                             Console.WriteLine("Обмен успешно совершен.");
                         }
@@ -121,9 +121,9 @@ namespace First_blood
                         Console.WriteLine("\nВы выбрали обмен Оренов на Флорены. Сколько Флоренов вы хотите купить?");
                         quantityToBuy = Convert.ToSingle(Console.ReadLine());
 
-                        if (oren >= quantityToBuy * florenToOren)
+                        if (oren >= quantityToBuy / orenToFloren)
                         {
-                            oren -= quantityToBuy * florenToOren;
+                            oren -= quantityToBuy / orenToFloren;
                             floren += quantityToBuy;
                             Console.WriteLine("Обмен успешно совершен.");
                         }
@@ -140,7 +140,7 @@ namespace First_blood
                         break;
                 }
 
-                Console.WriteLine($"\nОстаток Оренов: {oren};\nОстаток Крон: {krone};\nОстаток Флоренов: {floren}");
+                Console.WriteLine($"\nОстаток Оренов: {oren};\nОстаток Крон: {krone};\nОстаток Флоренов: {floren};");
             }
         }
     }
