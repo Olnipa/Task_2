@@ -1,0 +1,31 @@
+using System;
+
+namespace First_blood
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random rand = new Random();
+            int number = rand.Next(1, 28);
+            int memory = 0;
+            int quantityOfMultipleNumbers = 0;
+            int minNumberOfRange = 100;
+            int maxNumberOfRange = 999;
+
+            Console.Write("Загадано число: " + number);
+            Console.WriteLine();
+
+            for (int i = 1; memory < maxNumberOfRange; i += 1)
+            {
+                memory += number;
+
+                if (memory >= minNumberOfRange && memory <= maxNumberOfRange)
+                {
+                    quantityOfMultipleNumbers += 1;
+                }
+            }
+            Console.WriteLine($"Количество трехзначных натуральных чисел, которые кратны {number}: {quantityOfMultipleNumbers}");
+        }
+    }
+}
