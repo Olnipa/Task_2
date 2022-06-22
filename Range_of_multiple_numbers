@@ -16,14 +16,13 @@ namespace First_blood
             Console.Write("Загадано число: " + number);
             Console.WriteLine();
 
-            for (int i = 1; memory < maxNumberOfRange; i += 1)
+            for (int i; memory <= maxNumberOfRange; memory += number)
             {
-                memory += number;
-
-                if (memory >= minNumberOfRange && memory <= maxNumberOfRange)
+                if (memory >= minNumberOfRange)
                 {
                     quantityOfMultipleNumbers += 1;
                 }
+                Console.WriteLine("Сумма: " + memory);
             }
             Console.WriteLine($"Количество трехзначных натуральных чисел, которые кратны {number}: {quantityOfMultipleNumbers}");
         }
