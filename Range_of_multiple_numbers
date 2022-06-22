@@ -6,9 +6,8 @@ namespace First_blood
     {
         static void Main(string[] args)
         {
-            Random rand = new Random();
-            int number = rand.Next(1, 28);
-            int memory = 0;
+            Random random = new Random();
+            int number = random.Next(1, 28);
             int quantityOfMultipleNumbers = 0;
             int minNumberOfRange = 100;
             int maxNumberOfRange = 999;
@@ -16,7 +15,7 @@ namespace First_blood
             Console.Write("Загадано число: " + number);
             Console.WriteLine();
 
-            for (int i; memory <= maxNumberOfRange; memory += number)
+            for (int memory = 0; memory <= maxNumberOfRange; memory += number)
             {
                 if (memory >= minNumberOfRange)
                 {
