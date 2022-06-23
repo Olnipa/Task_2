@@ -1,0 +1,47 @@
+using System;
+
+namespace First_blood
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Введите скобочное выражение, а я проверю, правильное ли оно. А еще посчитаю его глубину!" +
+                "\nВведите скобочное выражение типа \"(()())\": ");
+            string bracketStroke = Console.ReadLine();
+            int summOfBrackets = 0;
+            int bracketLevel = 0;
+            int wrongBreaks = 0;
+
+            for (int i = 0; i < bracketStroke.Length; i++)
+            {
+                if (Convert.ToString(bracketStroke[i]) == "(")
+                {
+                    summOfBrackets++;
+                }
+                else if (Convert.ToString(bracketStroke[i]) == ")")
+                {
+                    summOfBrackets--;
+                }
+
+                if (summOfBrackets < 0 || (bracketStroke.Length == (i+1) && summOfBrackets != 0))
+                {
+                    wrongBreaks = 1;
+                    Console.WriteLine("Введенное скобочное выражение является некорректным.");
+                    break;
+                }
+
+                if (summOfBrackets > bracketLevel)
+                {
+                    bracketLevel = summOfBrackets;
+                } 
+            }
+
+            if (wrongBreaks == 0)
+            {
+                Console.WriteLine("Введенное скобочное выражение является корректным.");
+                Console.WriteLine("Максимальная глубина скобочного выражения: " + bracketLevel + ".");
+            }
+        }
+    }
+}
