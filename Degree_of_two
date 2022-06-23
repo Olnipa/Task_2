@@ -1,0 +1,28 @@
+using System;
+
+namespace First_blood
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random random = new Random();
+            int minRandomNumber = 0;
+            int maxRandomNumber = 1000;
+            int number = random.Next(minRandomNumber, maxRandomNumber);
+            int degreeOfRootNumber;
+            int rootNumber = 2;
+            int rootNummberInDegreeOfRootNumber = rootNumber;
+
+            Console.Write("Загадано число: " + number + "\n\n");
+
+            for (degreeOfRootNumber = 1; rootNummberInDegreeOfRootNumber <= number; degreeOfRootNumber += 1)
+            {
+                rootNummberInDegreeOfRootNumber *= rootNumber;
+            }
+
+            Console.WriteLine($"Минимальнуая степень числа {rootNumber}, результат которой превосходит число {number}: {degreeOfRootNumber}." +
+                $"\n{rootNumber} в степени {degreeOfRootNumber} равно {rootNummberInDegreeOfRootNumber}.");
+        }
+    }
+}
