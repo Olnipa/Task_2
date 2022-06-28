@@ -7,15 +7,19 @@ namespace First_blood
         static void Main(string[] args)
         {
             Random random = new Random();
-            int minSwordDamage = 7;
-            int minEpicSwordDamage = 18;
-            int stash = 1;
+            int swordDamage = 7;
+            int epicSwordDamage = 18;
+            bool stash = true;
             string choosenMenu = "";
             string choosenSkill = "";
+            int roundFightNumber = 0;
+            int minRequiredAttention = 11;
+            int maxRequiredAttention = 16;
+            int requiredAttention = random.Next(minRequiredAttention, maxRequiredAttention);
 
-            int bossHealth = 1000;
-            int actualBossHealth = bossHealth;
-            int damageBoss;
+            int bossHealth = 2000;
+            float actualBossHealth = bossHealth;
+            float damageBoss;
             int minDamageBoss = 40;
             int maxDamageBoss = 80;
             int minAccuracyBoss = 14;
@@ -26,60 +30,87 @@ namespace First_blood
             int bossCriticalDamageRatio = 3;
             int minAgilityBoss = 5;
             int maxAgilityBoss = 15;
+            int minBossDurability = 11;
+            int maxBossDurability = 15;
+            int accuracyBoss;
 
             string characterName;
-            int characterHealth = 500;
-            int actualCharacterHealth = characterHealth;
-            int characterDamage;
+            int characterHealth = 1000;
+            float actualCharacterHealth = characterHealth;
+            float characterDamage;
             int minDamageCharacter = 15;
-            int maxDamageCharacter = 35;
+            int maxDamageCharacter = 55;
             int characterCriticalDamageRatio = 3;
             int minCharacterCriticalDamageChance = 1;
             int maxCharacterCriticalDamageChance = 11;
             int characterCriticalDamageNeed = 10;
             int minAgilityCharacter = 11;
             int maxAgilityCharacter = 17;
-            int minAttention = 5;
-            int maxAttention = 21;
-            int minRequiredAttention = 11;
-            int maxRequiredAttention = 15;
-            int characterAttention = random.Next(minAttention, maxAttention);
-            int requiredAttention = random.Next(minRequiredAttention, maxRequiredAttention);
+            int minCharacterAttention = 10;
+            int maxCharacterAttention = 21;
+            int characterAttention = random.Next(minCharacterAttention, maxCharacterAttention);
             int minAccuracyCharacter = 10;
             int maxAccuracyCharacter = 20;
+            int minCharacterStrength = 12;
+            int maxCharacterStrength = 19;
+            int agilityCharacter;
 
-            int rage = 0;
-            int minBerserkHitNumber = 5;
-            int maxBerserkHitNumber = 8;
-            int berserkDamageRatio = 2;
+            int minBerserkHitNumber = 4;
+            int maxBerserkHitNumber = 9;
+            float berserkDamageRatio = 1.5f;
             int berserkRageNeed = 4;
 
-            int minRageRandom = 0;
-            int maxRageRandom = 3;
-            int rageChance = 0;
+            int ramAttackRageNeed = 3;
+            int ramAttackSuccess = 0;
+            int ramAttackRounds = 2;
+
+            int armorSkillRageNeed = 1;
+            int armorSkillSuccess = 0;
+            int armorSkillRounds = 4;
+            float armorSkillHealthPercent = 0.5f;
+            float armorSkillDefenseRate = 0.3f;
+
+            int rage = 0;
+            int minRageRandom = 1;
+            int maxRageRandom = 11;
+            int rageChance = 3;
 
             int inBagPotion = 0;
+            int minQuantityOfPotion = 2;
+            int maxQuantityOfPotion = 5;
+            int minPotionFail = 0;
+            int maxPotionFail = 6;
+            int healPotion;
+            int minHealPotion = 70;
+            int maxHealPotion = 370;
+            int minDamagePotion = -76;
+            int maxDamagePotion = -25;
 
-            Console.WriteLine("Введите имя Вашего персонажа");
+            Console.Write("Введите имя Вашего персонажа: ");
             characterName = Console.ReadLine();
-            Console.WriteLine("Ваша внимательность: " + characterAttention + "\nТребуемая внимательность: " + requiredAttention);
-            Console.WriteLine("Вы воин, копающий могилу для поверженного вами врага. В один момент лопата задевает какой-то деревянный " +
+            Console.WriteLine($"Ваша внимательность: {characterAttention}" +
+                $"\nКоличество жизней вашего персонажа: {characterHealth}" +
+                $"\nОружие вашего персонажа: Меч с уроном {swordDamage} + (от {minDamageCharacter} до {maxDamageCharacter})");
+            Console.WriteLine("\nПредистория\nВы воин, копающий могилу для поверженного вами врага. В один момент лопата задевает какой-то деревянный " +
                 "предмет. Раскопав глубже вы обнаруживаете небольшой сундучок, внутри которого лежит свиток. " +
                 "Свиток настолько старый, что некоторые слова и буквы стерты. Вот как это выглядит: " +
                 "\"Артефакт ..... волшебный лежит под землей и он распаложен на северо-южных ост..х. в пещ..." +
                 "\". Также в свитке изображена карта, но многие детали на ней стерты." +
                 "\nВы приняли решение найти то, о чем говорится в тексте..." +
                 "\nИтак, путешествуя в поисках древнего артефакта вы входите в пещеру за сокровищем, место которого было отмечено " +
-                "в свитке. Спустя примерно 200 футов хотьбы по темному сырому проходу, за резким поворотом направо вы замечаете ветхую деревянную " +
-                "дверь.");
+                "в свитке. Спустя примерно 200 футов хотьбы по темному сырому проходу, за резким поворотом направо, " +
+                "вы замечаете ветхую деревянную дверь.");
 
             while (choosenMenu != "1" && choosenMenu != "2")
             {
-                Console.WriteLine("\nЧто будуте делать дальше?\n1 - развернуться и уйти. Нахрен этот артефакт вам не уперся.\n2 - открыть дверь. Не зря же вы проделали этот длинный путь");
-                if (characterAttention >= requiredAttention && stash == 1)
+                Console.WriteLine("\nЧто будуте делать дальше?\n1 - развернуться и уйти. Нахрен этот артефакт вам не уперся." +
+                    "\n2 - открыть дверь. Не зря же вы проделали этот длинный путь");
+
+                if (characterAttention >= requiredAttention && stash == true)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("178 - Вы замечаете что рядом с дверью один из камней необычной формы. Поднять этот камень. (Успешная проверка внимательности)");
+                    Console.WriteLine("178 - Вы замечаете что рядом с дверью один из камней необычной формы. Поднять этот камень. " +
+                        "(Успешная проверка внимательности)");
                     Console.ForegroundColor = ConsoleColor.Black;
                 }
                 Console.Write("\nВыберите, как вы поступите: ");
@@ -91,27 +122,29 @@ namespace First_blood
                         Console.WriteLine("Приключения - это не для всех. Поздравляю, что вы наконец сделали осознанный выбор! Всего доброго!");
                         break;
                     case "2":
-                        Console.WriteLine("\nВы открываете дверь, проходите внутрь и обнаруживаете посреди просторной, освещенной мистическим светом комнаты, " +
-                            "стоящий неподвижно скелет. На скелете надета мантия, пальцы усыпаны драгоценными кольцами. И судя по характерному замаху руки, " +
-                            "держащей меч - он готовится нанести по вам удар.");
+                        Console.WriteLine("\nВы открываете дверь, проходите внутрь и обнаруживаете посреди просторной, " +
+                            "освещенной мистическим светом комнаты, стоящий неподвижно скелет. На скелете надета мантия, " +
+                            "пальцы усыпаны драгоценными кольцами. И судя по характерному замаху руки, " +
+                            "держащей меч - он готовится нанести по вам удар. Начинается бой.");
                         break;
                     case "178":
 
-                        if (characterAttention >= requiredAttention && stash == 1)
+                        if (characterAttention >= requiredAttention && stash == true)
                         {
-                            Console.WriteLine("Вы приподнимаете камень и к своему удивлению обнаруживаете под ним пыльный флакон целебного зелья. " +
-                                "Ваш опыт подсказывает Вам что это среднее зелье лечения на +50ХП");
+                            Console.WriteLine("\nВы приподнимаете камень и к своему удивлению обнаруживаете под ним " +
+                                "очень пыльные флаконы красного цвета. Ваш опыт подсказывает что перед вами зелья лечения.");
+                            inBagPotion = random.Next(minQuantityOfPotion, maxQuantityOfPotion);
                             Console.ForegroundColor = ConsoleColor.DarkGray;
-                            Console.WriteLine("Вы получили новый предмет: Ветхое зелье лечения - 1 шт.");
+                            Console.WriteLine("\nВы получили новый предмет: Ветхое зелье лечения - " + inBagPotion + " шт.");
                             Console.ForegroundColor = ConsoleColor.Black;
+                            Console.Write("\nДля продолжения нажмите клавишу Enter.");
                             Console.ReadLine();
-                            stash = 0;
-                            inBagPotion++;
+                            stash = false;
                             choosenMenu = "";
                         }
                         else
                         {
-                            Console.WriteLine("Здесь вы ничего не находите.");
+                            Console.WriteLine("\nЗдесь вы ничего не находите.");
                         }
                         break;
                     default:
@@ -130,12 +163,24 @@ namespace First_blood
                 }
                 else
                 {
-                    Console.WriteLine("\n Что вы будете делать дальше?\n" +
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("\nДля продолжения нажмите клавишу Enter.");
+                    Console.ReadLine ();
+                    roundFightNumber++;
+                    Console.WriteLine($"\n============================================== РАУНД {roundFightNumber} " +
+                        $"============================================== " +
+                        $"\n{characterName}: {actualCharacterHealth} / {characterHealth} ХП. Очков ярости: {rage}." +
+                        $"\n\nСкелет: {actualBossHealth} / {bossHealth} ХП" +
+                        $"\n===================================================================================================== \n");
+                    Console.WriteLine("Что вы будете делать дальше? Отступать некуда!\n" +
                         "\n1 - Нанести удар мечом." +
-                        "\n2 - Применить способность \"Берсерк\"(Требуется " + berserkRageNeed + " очка ярости)" +
-                        "\n3 - Применить способность \"Таран\". Сбивает противника с ног. (Требуется 2 очка ярости)" +
-                        "\n4 - Применить способность \"Броня броненосца\" (Возможно применить при 50% ХП. Требуется 3 очка ярости)" +
-                        "\n9 - Попытаться убежать");
+                        "\n2 - Применить способность \"Берсерк\". Наносит серию быстрых ударов. " +
+                        "(Требует " + berserkRageNeed + " очка ярости)" +
+                        "\n3 - Применить способность \"Таран\". Сбивает противника с ног на " + ramAttackRounds + " раунда. " +
+                        "Пока он лежит - весь урон по нему становится критическим. (Требует " + ramAttackRageNeed + " очка ярости)" +
+                        "\n4 - Применить способность \"Броненосец\". Снижает получаемый урон на " + 100 * (1 - armorSkillDefenseRate) + "%" +
+                        " на " + armorSkillRounds + " раунда. (Возможно применить при менее " + 100 * armorSkillHealthPercent + "% ХП." +
+                        " Требует " + armorSkillRageNeed + " очка ярости)");
 
                     if (inBagPotion > 0)
                     {
@@ -143,37 +188,42 @@ namespace First_blood
                         Console.WriteLine("127 - Выпить Ветхое зелье лечения.");
                         Console.ForegroundColor = ConsoleColor.Black;
                     }
+                    Console.Write("\nВведите применяемый навык: ");
                     choosenSkill = Console.ReadLine();
+                    Console.Write ("\n===================================================================================================== \n");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
 
                     switch (choosenSkill)
                     {
                         case "1":
-                            Console.ForegroundColor = ConsoleColor.DarkGray;
 
                             if (random.Next(minAccuracyCharacter, maxAccuracyCharacter) > random.Next(minAgilityBoss, maxAgilityBoss))
                             {
-                                characterDamage = minSwordDamage + random.Next(minDamageCharacter, maxDamageCharacter);
+                                characterDamage = swordDamage + random.Next(minDamageCharacter, maxDamageCharacter);
 
-                                if (random.Next(minCharacterCriticalDamageChance, maxCharacterCriticalDamageChance) == characterCriticalDamageNeed)
+                                if (random.Next(minCharacterCriticalDamageChance, maxCharacterCriticalDamageChance) == characterCriticalDamageNeed || ramAttackSuccess > 0)
                                 {
                                     actualBossHealth -= characterCriticalDamageRatio * characterDamage;
                                     Console.Write("\nВам удалось попасть по слабому месту в броне оппонента. Вы нанесли ");
                                     Console.ForegroundColor = ConsoleColor.DarkRed;
                                     Console.Write(characterCriticalDamageRatio * characterDamage);
                                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                                    Console.Write(" урона. (Скелет: " + actualBossHealth + " / " + bossHealth + ")\n");
+                                    Console.Write(" урона. (Скелет: " + actualBossHealth + " / " + bossHealth + ")");
+                                    rage++;
+                                    Console.Write(" Ярость +1. Очков ярости: " + rage + ".");
                                 }
                                 else
                                 {
                                     actualBossHealth -= characterDamage;
-                                    Console.Write("\nВы нанесли по скелету " + characterDamage + " урона. " +
+                                    Console.Write("\nВы нанесли скелету " + characterDamage + " урона. " +
                                         "(Скелет: " + actualBossHealth + " / " + bossHealth + ")\n");
-                                }
 
-                                if (random.Next(minRageRandom, maxRageRandom) != rageChance)
-                                {
-                                    rage++;
-                                    Console.WriteLine("Ярость +1. Очков ярости: " + rage + ".");
+                                    if (random.Next(minRageRandom, maxRageRandom) > rageChance)
+                                    {
+                                        rage++;
+                                        Console.WriteLine("Ярость +1. Очков ярости: " + rage + ".");
+                                    }
+
                                 }
                             }
                             else
@@ -181,42 +231,42 @@ namespace First_blood
                                 Console.Write("\nВы попытались нанести удар мечем по скелету, но ему удалось увернуться от вашего удара. " +
                                     "(Скелет - " + actualBossHealth + " / " + bossHealth + ")\n");
                             }
-                            Console.ForegroundColor = ConsoleColor.Black;
                             break;
                         case "2":
+
                             if (rage >= berserkRageNeed)
                             {
-                                Console.WriteLine("Вы применили способность \"Берсерк\", и наносите серию быстрых ударов по противнику.");
+                                Console.WriteLine("\nВы применили способность \"Берсерк\", и наносите серию быстрых ударов по противнику.");
                                 rage -= berserkRageNeed;
 
                                 for (int berserkHitNumber = 0; berserkHitNumber <= random.Next(minBerserkHitNumber, maxBerserkHitNumber); berserkHitNumber++)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.DarkGray;
-
                                     if (random.Next(minAccuracyCharacter, maxAccuracyCharacter) > random.Next(minAgilityBoss, maxAgilityBoss))
                                     {
-                                        characterDamage = minSwordDamage + random.Next(minDamageCharacter, maxDamageCharacter) / berserkDamageRatio;
+                                        characterDamage = swordDamage + random.Next(minDamageCharacter, maxDamageCharacter) / berserkDamageRatio;
 
-                                        if (random.Next(minCharacterCriticalDamageChance, maxCharacterCriticalDamageChance) == characterCriticalDamageNeed)
+                                        if (random.Next(minCharacterCriticalDamageChance, maxCharacterCriticalDamageChance) == characterCriticalDamageNeed || ramAttackSuccess > 0)
                                         {
                                             actualBossHealth -= characterCriticalDamageRatio * characterDamage;
-                                            Console.Write("\nВы нанесли по скелету ");
+                                            Console.Write("\nВы нанесли скелету ");
                                             Console.ForegroundColor = ConsoleColor.DarkRed;
                                             Console.Write(characterCriticalDamageRatio * characterDamage);
                                             Console.ForegroundColor = ConsoleColor.DarkGray;
                                             Console.Write(" урона. (Скелет: " + actualBossHealth + " / " + bossHealth + ")");
+                                            rage++;
+                                            Console.Write(" Ярость +1. Очков ярости: " + rage + ".");
                                         }
                                         else
                                         {
                                             actualBossHealth -= characterDamage;
-                                            Console.Write("\nВы нанесли по скелету " + characterDamage + " урона. " +
+                                            Console.Write("\nВы нанесли скелету " + characterDamage + " урона. " +
                                                 "(Скелет: " + actualBossHealth + " / " + bossHealth + ")");
-                                        }
 
-                                        if (random.Next(minRageRandom, maxRageRandom) != rageChance)
-                                        {
-                                            rage++;
-                                            Console.Write(" Ярость +1. Очков ярости: " + rage + ".");
+                                            if (random.Next(minRageRandom, maxRageRandom) != rageChance)
+                                            {
+                                                rage++;
+                                                Console.Write(" Ярость +1. Очков ярости: " + rage + ".");
+                                            }
                                         }
                                     }
                                     else
@@ -225,26 +275,126 @@ namespace First_blood
                                     }
                                 }
                                 Console.WriteLine();
-                                Console.ForegroundColor = ConsoleColor.Black;
                             }
                             else
                             {
-                                Console.WriteLine("У Вас недостаточно очков ярости");
+                                Console.WriteLine("\nВы попытались применить навык \"Берсерк\", но замешкались. (У Вас недостаточно очков ярости)");
                             }
                             break;
                         case "3":
 
+                            if (rage >= ramAttackRageNeed)
+                            {
+                                Console.WriteLine("\nВы применили способность \"Таран\", и пытаетесь с разбега сбить противника с ног.\n");
+                                rage -= ramAttackRageNeed;
+
+                                if (random.Next(minBossDurability, maxBossDurability) <= random.Next(minCharacterStrength, maxCharacterStrength))
+                                {
+                                    Console.Write("Вы успешно сбили скелета с ног на " + ramAttackRounds + " раунда.");
+                                    characterDamage = random.Next(minDamageCharacter, maxDamageCharacter);
+
+                                    if (random.Next(minCharacterCriticalDamageChance, maxCharacterCriticalDamageChance) == characterCriticalDamageNeed || ramAttackSuccess > 0)
+                                    {
+                                        actualBossHealth -= characterCriticalDamageRatio * characterDamage;
+                                        Console.Write(" Также вы попали по его ослабленному месту и нанесли ");
+                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                        Console.Write(characterCriticalDamageRatio * characterDamage);
+                                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                                        Console.Write(" урона. (Скелет: " + actualBossHealth + " / " + bossHealth + ")");
+                                        rage++;
+                                        Console.Write(" Ярость +1. Очков ярости: " + rage + ".");
+                                    }
+                                    else
+                                    {
+                                        actualBossHealth -= characterDamage;
+                                        Console.Write("\nТакже Вам удалось нанести " + characterDamage + " урона. " +
+                                            "(Скелет: " + actualBossHealth + " / " + bossHealth + ")");
+
+                                        if (random.Next(minRageRandom, maxRageRandom) != rageChance)
+                                        {
+                                            rage++;
+                                            Console.Write(" Ярость +1. Очков ярости: " + rage + ".");
+                                        }
+                                    }
+                                    ramAttackSuccess = ramAttackRounds;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Вам не удалось попасть скелету и сбить его с ног.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nВы поспешно попытались применить способность \"Таран\", но поздно опомнились. " +
+                                    "У Вас недостаточно очков ярости\n");
+                            }
+                            break;
+                        case "4":
+
+                            if (rage >= armorSkillRageNeed && actualCharacterHealth < characterHealth * armorSkillHealthPercent)
+                            {
+                                armorSkillSuccess = armorSkillRounds;
+                                Console.WriteLine("\nВы применили способность \"Броненосец\", и в это же мгновение ваша броня " +
+                                    "начала излучать небольшое свечение белого цвета. Теперь в течении " + armorSkillRounds + " раундов " +
+                                    "часть урона будет поглащена магической броней.");
+                                rage -= armorSkillRageNeed;
+                            }
+                            else
+                            {
+                                Console.WriteLine("К сожалению в процессе боя вы потеряли концентрацию и не смогли применить свои навыки." +
+                                    " Сосредоточтесь!");
+                            }
+                            break;
+                        case "127":
+                            if (inBagPotion > 0)
+                            {
+                                inBagPotion--;
+                                Console.Write("\nВы выпиваете ветхое зелье лечения и ");
+
+                                if (random.Next(minPotionFail, maxPotionFail) > 0)
+                                {
+                                    healPotion = random.Next(minHealPotion, maxHealPotion);
+                                    actualCharacterHealth += healPotion;
+                                    Console.WriteLine("пополняете здоровье на " + healPotion + " ХП. " +
+                                        "(" + characterName + ": " + actualCharacterHealth + " / " + characterHealth + ")");
+                                }
+                                else
+                                {
+                                    healPotion = random.Next(minDamagePotion, maxDamagePotion);
+                                    actualCharacterHealth += healPotion;
+                                    Console.WriteLine("понимаете что зелье протухло, а также получаете " + (healPotion * -1) + " урона. " +
+                                        "(" + characterName + ": " + actualCharacterHealth + " / " + characterHealth + ")");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nВы попытались во время боя поискать что-то в инвентаре, но ничего не нашли.");
+                            }
+                            break;
+                        default:
+                            Console.WriteLine("\nВ процессе боя вы запаниковали и не смогли совершить ничего вразумительного.");
                             break;
                     }
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    accuracyBoss = random.Next(minAccuracyBoss, maxAccuracyBoss);
+                    agilityCharacter = random.Next(minAgilityCharacter, maxAgilityCharacter);
 
-                    if (random.Next(minAccuracyBoss, maxAccuracyBoss) > random.Next(minAgilityCharacter, maxAgilityCharacter))
+                    if (accuracyBoss >= agilityCharacter && ramAttackSuccess == 0)
                     {
-                        damageBoss = minEpicSwordDamage + random.Next(minDamageBoss, maxDamageBoss);
+                        if (armorSkillSuccess == 0)
+                        {
+                            damageBoss = epicSwordDamage + random.Next(minDamageBoss, maxDamageBoss);
+                        }
+                        else
+                        {
+                            damageBoss = (epicSwordDamage + random.Next(minDamageBoss, maxDamageBoss)) * armorSkillDefenseRate;
+                            armorSkillSuccess--;
+                            Console.Write("\n" + characterName + " заблокировал " + 100 * (1 - armorSkillDefenseRate) +
+                                "% урона. Навык \"Броненосец\" продержится еще " + armorSkillSuccess + " раундов.");
+                        }
 
                         if (random.Next(minBossCriticalDamageChance, maxBossCriticalDamageChance) == bossCriticalDamageNeed)
                         {
-                            actualBossHealth -= bossCriticalDamageRatio * damageBoss;
+                            actualCharacterHealth -= bossCriticalDamageRatio * damageBoss;
                             Console.Write("\nСкелету удалось попасть по слабому месту в вашей броне. Вам нанесли ");
                             Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.Write(bossCriticalDamageRatio * damageBoss);
@@ -254,17 +404,41 @@ namespace First_blood
                         else
                         {
                             actualCharacterHealth -= damageBoss;
-                            Console.Write("\nCкелет нанес по " + characterName + " " + damageBoss + " урона. " +
-                                "(" + characterName + ": " + actualCharacterHealth + " / " + characterHealth + ")\n");
+                            Console.WriteLine("\nCкелет нанес по " + characterName + " " + damageBoss + " урона. " +
+                                "(" + characterName + ": " + actualCharacterHealth + " / " + characterHealth + ")");
                         }
                     }
-                    else
+                    else if (ramAttackSuccess > 0)
+                    {
+                        ramAttackSuccess--;
+                        Console.WriteLine("\nСкелет сбит с ног и не сможет нанести по вам урон еще " + ramAttackSuccess + " раундов.");
+
+                    }
+                    else if (accuracyBoss < agilityCharacter)
                     {
                         Console.Write("\nСкелет попытался нанести удар по " + characterName + ", но вам удалось увернуться от его удара. " +
                             "(" + characterName + " - " + actualCharacterHealth + " / " + characterHealth + ")\n");
                     }
-                    Console.ForegroundColor = ConsoleColor.Black;
                 }
+            }
+
+            if (actualBossHealth <= 0 && actualCharacterHealth <= 0)
+            {
+                Console.WriteLine("\nСкелет и " + characterName + " одновременно пронзили друг друга клинками и пали.");
+            }
+            else if (actualBossHealth <= 0)
+            {
+                Console.WriteLine("\nСкелет не выдержал жесточайшего напора " + characterName + " и рассыпался по косточкам." +
+                    " Не желая отдохнуть после тяжелейшего боя, вы стали искать в груде скелетных останков его драгоценности. " +
+                    "Взяв в руки его меч вы почувствовали странный прилив сил, невиданный ранее.");
+                swordDamage = epicSwordDamage;
+                Console.WriteLine("\nВы получили новый предмет: \"Эпичный Меч\" - 1 шт.\nВы получили новый предмет: " +
+                    "\"Драгоценные кольца\" - 5 шт." +
+                    "\nВы получили новый предмет: \"Изрезанная мантия\" - 1 шт.");
+            }
+            else if (actualCharacterHealth <= 0)
+            {
+                Console.WriteLine("\n" + characterName + " пал от руки Скелета, так и не добравшись до древнего артефакта.");
             }
         }
     }
