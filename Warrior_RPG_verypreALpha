@@ -67,9 +67,10 @@ namespace First_blood
             int armorSkillRageNeed = 1;
             int armorSkillSuccess = 0;
             int armorSkillRounds = 4;
-            float armorSkillHealthPercent = 0.5f;
+            float armorSkillHealthRate = 0.5f;
+            float armorSkillHealthPercent = armorSkillHealthRate * 100;
             float armorSkillDefenseRate = 0.3f;
-            float armorSkillBlockedDamage;
+            float armorSkillBlockedDamage = 100 * (1 - armorSkillDefenseRate);
 
             int rage = 0;
             int minRageRandom = 1;
@@ -173,8 +174,8 @@ namespace First_blood
                     "(Требует " + berserkRageNeed + " очка ярости)" +
                     "\n3 - Применить способность \"Таран\". Сбивает противника с ног на " + ramAttackRounds + " раунда. " +
                     "Пока он лежит - весь урон по нему становится критическим. (Требует " + ramAttackRageNeed + " очка ярости)" +
-                    "\n4 - Применить способность \"Броненосец\". Снижает получаемый урон на " + 100 * (1 - armorSkillDefenseRate) + "%" +
-                    " на " + armorSkillRounds + " раунда. (Возможно применить при менее " + 100 * armorSkillHealthPercent + "% ХП." +
+                    "\n4 - Применить способность \"Броненосец\". Снижает получаемый урон на " + armorSkillBlockedDamage + "%" +
+                    " на " + armorSkillRounds + " раунда. (Возможно применить при менее " + armorSkillHealthPercent + "% ХП." +
                     " Требует " + armorSkillRageNeed + " очка ярости)");
 
                 if (inBagPotion > 0)
@@ -330,7 +331,7 @@ namespace First_blood
                         break;
                     case "4":
 
-                        if (rage >= armorSkillRageNeed && actualCharacterHealth < characterHealth * armorSkillHealthPercent)
+                        if (rage >= armorSkillRageNeed && actualCharacterHealth < characterHealth * armorSkillHealthRate)
                         {
                             armorSkillSuccess = armorSkillRounds;
                             Console.WriteLine("\nВы применили способность \"Броненосец\", и в это же мгновение ваша броня " +
@@ -387,7 +388,6 @@ namespace First_blood
                     {
                         damageBoss = (epicSwordDamage + random.Next(minDamageBoss, maxDamageBoss)) * armorSkillDefenseRate;
                         armorSkillSuccess--;
-                        armorSkillBlockedDamage = 100 * (1 - armorSkillDefenseRate);
                         Console.Write("\n" + characterName + " заблокировал " + armorSkillBlockedDamage +
                             "% урона. Навык \"Броненосец\" продержится еще " + armorSkillSuccess + " раундов.");
                     }
